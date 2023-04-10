@@ -126,14 +126,7 @@ def callback(indata, frames, time, status):
     else:
         print('no input')
 
-
-try:
-    print("Starting HPS guitar tuner...")
-    with sd.InputStream(channels=1, callback=callback, blocksize=WINDOW_STEP, samplerate=SAMPLE_FREQ):
-        while True:
-            time.sleep(0.5)
-except Exception as exc:
-    print(str(exc))
+a = callback()
 
 # Create the main window
 root = tk.Tk()
@@ -147,7 +140,7 @@ title_label.grid(row=6, column=0)
 
 # Create the result label
 result_label = tk.Label(root, text="Result:")
-result_label = tk.Label(root, text=closest_note)
+result_label = tk.Label(root, text= a)
 result_label.grid(row=6, column=1)
 
 # Start the main loop
