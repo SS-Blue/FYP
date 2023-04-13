@@ -126,22 +126,7 @@ def callback(indata, frames, time, status):
     else:
         print('no input')
 
-a = callback()
-
-# Create the main window
-root = tk.Tk()
-root.title("Music Tuner")
-root.geometry("300x200")
-
-
-# Create the calculate button
-title_label = tk.Label(root, text="Play your music note!")
-title_label.grid(row=6, column=0)
-
-# Create the result label
-result_label = tk.Label(root, text="Result:")
-result_label = tk.Label(root, text= a)
-result_label.grid(row=6, column=1)
+a = callback(indata=0,frames=0,time=0,status=0)
 
 # Start the main loop
 root.mainloop()
