@@ -1,9 +1,9 @@
 import tkinter as tk
 # import main
 
-# this note is to print the result from main.py but idk how :'D
+# the notes here are to print the results from main.py but idk how :'D
 def show_text():
-    note_label.config(text="Note")
+    note_label.config(text="Note 1\tNote 2\tNote 3\tNote 4\tNote 5")
 
 # Create the main window
 root = tk.Tk()
