@@ -47,6 +47,8 @@ def find_closest_note(pitch):
 
 HANN_WINDOW = np.hanning(WINDOW_SIZE)
 
+def update_label(label, closest_note, max_freq, closest_pitch):
+    label.config(text=f"Closest note: {closest_note} {max_freq}/{closest_pitch}")
 
 def callback(indata, frames, time, status):
     """
@@ -119,14 +121,38 @@ def callback(indata, frames, time, status):
 
         os.system('cls' if os.name == 'nt' else 'clear')
         if callback.noteBuffer.count(callback.noteBuffer[0]) == len(callback.noteBuffer):
-            print(f"Closest note: {closest_note}")
+            note_label.config(text=f"Closest note: {closest_note}")
         else:
-            print(f"Closest note: ...")
+            note_label.config(text="Closest note ...")
 
-    else:
-        print('no input')
+def display():
+    try:
+        with sd.InputStream(channels=1, callback=callback, blocksize=WINDOW_STEP, samplerate=SAMPLE_FREQ):
+            while True:
+                time.sleep(0.5)
+    except Exception as exc:
+        print(str(exc))
 
-a = callback(indata=0,frames=0,time=0,status=0)
+# Create the main window
+root = tk.Tk()
+root.title("Music Tuner")
+root.geometry("900x450")
+
+# Create the calculate button
+title_label = tk.Label(root, text="MUSIC NOTE DETECTION\n\n\n\n")
+title_label.pack()
+
+note_label = tk.Label(root, text="")
+note_label.pack()
+
+space_label = tk.Label(root, text="\n\n\n")
+space_label.pack()
+
+record_label = tk.Button(root, text="Start Recording", command=display)
+record_label.pack(pady=30)
+
+exit_label = tk.Button(root, text="Exit", command=lambda: root.quit())
+exit_label.pack()
 
 # Start the main loop
 root.mainloop()
